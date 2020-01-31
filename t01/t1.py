@@ -24,6 +24,15 @@ dir(math)
 # tuple = ('Jojo', 21)
 # tuple 是 不可改值的 
 #
+# array = [1 , 2, 'Jojo']
+# array 可改值
+
+"""
+>>> array = [1 , 2, 'Jojo']
+>>> array[2] = 3
+>>> array
+[1, 2, 3]
+"""
 
 
 #
