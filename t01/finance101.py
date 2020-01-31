@@ -28,15 +28,16 @@ def pv_perpetuity(c, r, g = 0):
 年金
 ===
 
-Case 1: 散戶在n期內支付 PMT，在n期後有一個終值。
+Case 1: 散戶在n期內支付 PMT，在n期後，獲得有一個終值(FV)。
 如果是期末支付，那麼最後一期等於 PMT。
-前置年金＝＝期初年金 == annuity due (期初支付)
 
-Case 2: 散戶得到一筆現值，然後在n期內，支付
+Case 2: 散戶得到一筆現值(PV)，然後在n期內，支付PMT
 
 其它留意：
+一般討論普通年金；
+前置年金＝＝期初年金 == annuity due (期初支付)；
 
-ordinary annuity: 普通年金，期末支付
+ordinary annuity: 普通年金，期末支付；
 fv = [pmt / r] * [ (1 + r)**n - 1 ]
 
 Growing annuity: 增長型年金
@@ -104,3 +105,39 @@ def fv_annuity_due (pmt, r, n):
     """
     return fv_annuity(pmt, r, n) * (1 + r)
 
+def ear(apr, m):
+    """
+        apr 係報價利率，而多數是指年利率。
+        5%年利率，每半計一次複利
+        TEST: ear(5/100, 2) = 0.05062499999999992
+    """
+    return (1 + apr / m) ** m - 1
+
+def ear_e(apr, m):
+    """
+        TEST: ear_e(5/100, 2) = 0.04938522518074283
+    """
+    import math
+    return m * math.log(1 + apr / m)
+
+"""
+證明一下，銀行按揭計利率方式
+========
+
+等額本息和等額本金 原文網址：https://itw01.com/7JILEPK.html
+
+f.pmt_annuity(300*10000, 2/100/12, 360)
+>>> 11088.5841806647
+
+f.pmt_annuity(300*10000, f.ear(2/100, 12) / 12, 360)
+>>> 11116.26176073261
+
+(https://kknews.cc/house/r9z26r.html)
+每月月供額=〔貸款本金×月利率×(1＋月利率)＾還款月數〕÷〔(1＋月利率)＾還款月數-1〕
+
+(300*10000 * (2/100/12) * (1 + 2/100/12) ** 360) / ((1 + 2/100/12) ** 360 - 1)
+>>> 11088.5841806647
+
+總論係銀行冇用 ear，只是將 2%/12 當作 月利率。
+
+"""
