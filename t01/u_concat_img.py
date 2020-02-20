@@ -6,11 +6,11 @@
 # pip install opencv-python
 
 import cv2
-import numpy as np
 import os
 
-rootdir = '/Users/maxfan/Desktop/screen_temp/macd/'
-save_as = 'vc_macd.jpg'
+# rootdir: end with '/'
+rootdir = 'xxx/'
+save_as = 'rsi.jpg'
 
 file_ext_whitelist = ['.jpg']
 
